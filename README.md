@@ -1,4 +1,4 @@
-# frontend
+# Askme
 
 ## Project setup
 ```
