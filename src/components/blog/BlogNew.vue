@@ -55,8 +55,7 @@
                     <!-- Text and Code -->
                     <div v-else-if="section.Type === 'text' || section.Type === 'code'">
                         <textarea v-model="section.content" :placeholder="sectionPlaceholder(section.Type)"
-                            class="w-full bg-transparent focus:outline-none py-2 resize-none placeholder-gray-400"
-                            :rows="section.Type === 'code' ? 8 : 3" />
+                            class="w-full bg-transparent focus:outline-none py-2 placeholder-gray-400" :rows="11" />
                     </div>
 
                     <!-- Image Section -->
@@ -155,6 +154,7 @@ function sectionPlaceholder(type) {
     }
 }
 
+
 function autoRenderImage(index) {
     const section = newPost.value.sections[index]
     const url = section.tempImageUrl.trim()
@@ -195,7 +195,7 @@ function submitPost() {
 
     axios.post(`${API_URL}/blog/new`, JSON.stringify(payload), {
         headers: {
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJlbWFpbCI6Imxlb25pYmVsQGdvLmNvbSIsImV4cCI6MTc0NzU4MTAyN30.mcLJcT3R0LjrhtXoJ-AJDNKiTWnm82jGKOhO7lwSA_A'
+            'Authorization': 'Bearer '
         }
     }).then(response => {
         console.log('Success:', response.data);
@@ -211,6 +211,9 @@ input,
 select {
     border: none;
     background-color: transparent;
+    resize: none;
+    form-sizing: content;
+    max-height: 4000px;
 }
 
 textarea:focus,

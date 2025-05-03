@@ -1,41 +1,41 @@
 <template>
-    <div class="max-w-md mx-auto px-4 py-12">
-        <!-- Header -->
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold mb-4">Welcome Back</h1>
-            <p class="text-gray-600">Please login to your account</p>
-        </div>
+    <div class="min-h-screen flex items-center justify-center bg-white px-4">
+        <div class="w-full max-w-md">
+            <!-- Card -->
+            <div class="p-8 rounded-3xl shadow-sm border border-gray-200 bg-white">
+                <!-- Header -->
+                <div class="text-center mb-10">
+                    <h1 class="text-3xl font-semibold">Welcome back</h1>
+                    <p class="text-gray-500 mt-2 text-sm">Log in to continue</p>
+                </div>
 
-        <!-- Form -->
-        <form @submit.prevent="handleLogin" class="space-y-6">
-            <!-- Email -->
-            <div>
-                <label class="block text-gray-700 mb-2" for="email">Email</label>
-                <input v-model="email" type="email" id="email" required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                <!-- Form -->
+                <form @submit.prevent="handleLogin" class="space-y-6">
+                    <div>
+                        <input v-model="email" type="email" placeholder="Email" required
+                            class="w-full text-sm px-0 py-3 border-b border-gray-300 focus:outline-none focus:border-black placeholder-gray-400 bg-transparent" />
+                    </div>
+                    <div>
+                        <input v-model="password" type="password" placeholder="Password" autocomplete="off" required
+                            class="w-full text-sm px-0 py-3 border-b border-gray-300 focus:outline-none focus:border-black placeholder-gray-400 bg-transparent" />
+                    </div>
+
+                    <!-- Button -->
+                    <div class="pt-2">
+                        <button type="submit"
+                            class="w-full bg-black text-white py-3 rounded-full text-sm font-medium hover:bg-gray-900 transition">
+                            Login
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Register Link -->
+                <div class="text-center mt-6">
+                    <router-link to="/login" class="text-sm text-gray-500 hover:underline">
+                        Don’t have an account? <span class="text-black">Register</span>
+                    </router-link>
+                </div>
             </div>
-
-            <!-- Password -->
-            <div>
-                <label class="block text-gray-700 mb-2" for="password">Password</label>
-                <input v-model="password" type="password" id="password" required
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
-            </div>
-
-            <!-- Login Button -->
-            <div class="flex justify-center">
-                <button type="submit"
-                    class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-8 rounded-full transition duration-300">
-                    Login
-                </button>
-            </div>
-        </form>
-
-        <!-- Register Link -->
-        <div class="text-center mt-6">
-            <router-link :to="'/register'" class="text-blue-600 hover:underline">
-                Don't have an account? Register
-            </router-link>
         </div>
     </div>
 </template>
@@ -59,13 +59,3 @@ async function handleLogin() {
     }
 }
 </script>
-
-<style scoped>
-input {
-    background-color: #f9fafb;
-}
-
-button {
-    font-size: 1.1rem;
-}
-</style>

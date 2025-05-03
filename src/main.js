@@ -7,6 +7,7 @@ import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/components/prism-javascript.min.js';
 
 // components
+import LandingPage from './components/blog/LandingPage.vue';
 import HomeView from './components/blog/HomeBlog.vue'
 import PostView from './components/blog/BlogPost.vue'
 import PostNew from './components/blog/BlogNew.vue'
@@ -14,10 +15,7 @@ import Login from './components/blog/LoginPage.vue'
 import Signup from './components/blog/SignupPage.vue'
 
 const routes = [
-    {
-        path: '/',
-        redirect: { path: '/blog', query: { page: '1' } }
-    },
+    { path: '/', component: LandingPage },
     { path: "/blog", component: HomeView },
     { path: "/blog/new", component: PostNew },
     { path: "/blog/:uuid", component: PostView },

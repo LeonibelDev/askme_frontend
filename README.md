@@ -1,24 +1,42 @@
-# frontend
+# Frontend
 
-## Project setup
-```
+A Vue.js frontend project with views for the home page, newsletter form, and blog.
+
+## Screenshots
+
+**Home**
+![Home](/images/home.png)
+
+**Newsletter**
+![Newsletter](/images/newsletter.png)
+
+**Blog**
+![Blog](/images/blog.png)
+
+## Project Setup
+
+```bash
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
+### Start Development Server
+
+```bash
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
+### Build for Production
+
+```bash
 npm run build
 ```
 
-### Lints and fixes files
-```
+### Lint and Fix Files
+
+```bash
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Configuration
+
+For configuration details, see the [Vue CLI documentation](https://cli.vuejs.org/config/).

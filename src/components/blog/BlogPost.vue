@@ -16,15 +16,17 @@
     </h1>
 
     <!-- Cover Image -->
-    <div class="overflow-hidden rounded-2xl mb-12">
-      <img :src="post.cover" alt="Cover" class="w-full object-cover" />
+    <div class="overflow-hidden mb-12 text-center">
+      <img :src="post.cover" alt="Cover" class="w-full object-cover rounded-2xl" />
+
+      <span class="text-sm text-gray-400">from {{ ImageSource(post.cover) }}</span>
     </div>
 
     <!-- Sections -->
     <div class="space-y-12">
       <div v-for="section in sortedSections" :key="section.position">
         <!-- Normal Text -->
-        <p v-if="section.Type === 'text'" class="text-lg leading-8 text-gray-800 mb-6">
+        <p v-if="section.Type === 'text'" class="text-lg leading-8 text-gray-800 mb-6 whitespace-pre-line">
           {{ section.content }}
         </p>
 
@@ -34,13 +36,20 @@
         </h3>
 
         <!-- Video -->
-        <iframe v-else-if="section.Type === 'youtube'" width="100%" height="480" :src="section.content" frameborder="0"
+        <iframe v-else-if="section.Type === 'youtube'" width="100%" height="480" :src="youtubeEmbedUrl(section.content)"
+          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen class="rounded-xl"></iframe>
 
         <!-- Images -->
-        <img v-else-if="section.Type === 'image'" :src="section.content" alt="Section Image"
-          class="w-full rounded-xl mx-auto mb-8" loading="lazy" />
+        <img v-if="section.Type === 'image'" :src="section.content" alt="Section Image"
+          class="w-full rounded-xl mx-auto" loading="lazy" />
+
+        <div v-if="section.Type === 'image'" class="text-center">
+          <span class="text-sm text-gray-400">from {{
+            ImageSource(section.content)
+            }}</span>
+        </div>
 
         <!-- Code -->
         <pre v-else-if="section.Type === 'code'" class="rounded-xl overflow-x-auto">
@@ -51,27 +60,34 @@
 
     <!-- Go Back Button -->
     <div class="flex justify-center mt-16">
-      <router-link :to="'/blog'"
+      <button @click="GoBack()"
         class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-8 rounded-full transition duration-300">
         ← Go Back
-      </router-link>
+      </button>
     </div>
+
+    <NewsLetter class="mt-16" />
   </div>
 
   <div v-else class="text-center py-20 text-gray-400">
     Loading post...
   </div>
+
+
 </template>
 
 <script setup>
+import NewsLetter from '../assets/NewsLetter.vue'
 import { ref, computed, onMounted, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import Prism from 'prismjs'
 import { API_URL } from '@/config'
 
 const route = useRoute()
+const router = useRouter()
 const post = ref(null)
+const prevUrl = ref('')
 
 async function getPost() {
   try {
@@ -93,6 +109,7 @@ async function getPost() {
 
 onMounted(() => {
   getPost()
+  prevUrl.value = document.referrer
 })
 
 const formattedDate = computed(() => {
@@ -104,6 +121,23 @@ const formattedDate = computed(() => {
     day: 'numeric'
   })
 })
+
+function youtubeEmbedUrl(url) {
+  const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]{11})/
+  const match = url?.match(regex)
+  if (match && match[1]?.length === 11) {
+    return `https://www.youtube.com/embed/${match[1]}`
+  }
+  return ''
+}
+
+function ImageSource(url) {
+  return url.split('/')[2]
+}
+
+function GoBack() {
+  router.back()
+}
 
 const sortedSections = computed(() => {
   if (!post.value) return []
@@ -124,6 +158,10 @@ code {
   font-family: 'Courier New', Courier, monospace;
   font-size: 1rem;
   line-height: 1.5;
+  word-wrap: break-word;
+}
+
+pre {
   word-wrap: normal;
 }
 </style>
