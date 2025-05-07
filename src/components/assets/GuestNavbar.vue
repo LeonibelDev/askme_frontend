@@ -1,5 +1,5 @@
 <template>
-    <header class="w-full bg-white flex-col bg-white fixed backdrop-blur bg-white/80">
+    <header class="w-full bg-white flex-col bg-white fixed backdrop-blur bg-white/80 z-50">
         <nav class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
             <!-- Logo -->
             <router-link to="/" class="text-lg font-semibold text-gray-900 tracking-tight">

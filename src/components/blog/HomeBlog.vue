@@ -1,7 +1,23 @@
 <template>
     <main class="flex min-h-screen flex-col bg-white">
         <!-- Blog List Section -->
-        <section class="max-w-5xl mx-auto px-6 py-20 space-y-16">
+        <section class="max-w-3xl mx-auto px-6 py-[40px] space-y-5">
+            <div v-if="posts && posts.length === 0 && isLoading == false"
+                class="flex flex-col items-center justify-center text-gray-500 py-24 space-y-4">
+                <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" stroke-width="1.5"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 8v4m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+                </svg>
+                <p class="text-lg font-medium">No posts yet</p>
+                <p class="text-sm text-gray-400">New posts will appear here when available.</p>
+                <router-link to="/blog"
+                    class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-7 rounded-full transition duration-300 text-sm">
+                    Back to Home
+                </router-link>
+            </div>
+
+
             <div v-for="post in posts" :key="post.id"
                 class="flex flex-col md:flex-row items-start gap-8 pb-10 last:pb-0">
 
@@ -29,7 +45,7 @@
                         </router-link>
 
                         <!-- Excerpt -->
-                        <p class="text-gray-700 text-base md:text-lg leading-snug">
+                        <p class="text-gray-700 text-base leading-snug">
                             <span v-if="post.sections && post.sections.length > 0">
                                 {{ getExcerpt(post.sections[0].content) }}
                             </span>
@@ -47,12 +63,31 @@
                 </div>
             </div>
 
+
+            <!-- Skeleton Loader -->
+            <div v-if="isLoading" class="space-y-10">
+                <div v-for="i in 3" :key="i" class="animate-pulse flex flex-col md:flex-row gap-8">
+                    <!-- Skeleton Image -->
+                    <div class="w-full md:w-44 h-32 bg-gray-200 rounded-lg"></div>
+                    <!-- Skeleton Texts -->
+                    <div class="flex-1 space-y-3">
+                        <div class="h-4 bg-gray-200 rounded w-1/4"></div>
+                        <div class="h-6 bg-gray-300 rounded w-3/4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full"></div>
+                        <div class="flex gap-2 pt-2">
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                            <div class="h-6 w-16 bg-gray-200 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Pagination (UI Only) -->
             <div class="flex justify-center items-center gap-2 pb-20">
-                <button :disabled="page === 0"
+                <router-link :to="`/blog?offset=${offset - 5}`" :disabled="offset === 0"
                     class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700">
                     Previous
-                </button>
+                </router-link>
 
                 <div v-for="i in 3" :key="i">
                     <router-link :to="`/blog?offset=${(i - 1) * 5}`" :class="[
@@ -63,10 +98,17 @@
                     </router-link>
                 </div>
 
-
-                <button class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700">
-                    Next
+                <button :class="[
+                    'px-4 py-2 rounded-full text-sm font-medium',
+                    offset > 10 ? 'bg-[#16a34a] text-white' : 'bg-gray-100 text-black'
+                ]">
+                    ...
                 </button>
+
+                <router-link :to="`/blog?offset=${offset + 5}`" :disabled="offset === 0"
+                    class="px-4 py-2 rounded-full text-sm font-medium bg-gray-100 hover:bg-gray-200 text-gray-700">
+                    Next
+                </router-link>
             </div>
 
         </section>
@@ -84,13 +126,19 @@ const posts = ref([])
 
 const route = useRoute()
 const offset = computed(() => parseInt(route.query.offset) || 0)
+let isLoading = ref(true)
 
 async function fetchPosts() {
+    isLoading = true
     try {
         const { data } = await axios.get(`${API_URL}/blog/all?offset=${offset.value}`)
-        posts.value = data.posts
+        posts.value = Array.isArray(data.posts) ? data.posts : []
     } catch (error) {
         console.error('Error fetching posts:', error)
+        posts.value = []
+    }
+    finally {
+        isLoading = false
     }
 }
 

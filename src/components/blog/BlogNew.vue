@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-4xl mx-auto px-4 py-12 relative">
+    <div class="max-w-3xl mx-auto px-4 py-12 relative">
 
         <form @submit.prevent="submitPost" class="space-y-10">
 
@@ -115,7 +115,9 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { API_URL } from '@/config'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const newPost = ref({
     title: '',
     description: '',
@@ -195,10 +197,11 @@ function submitPost() {
 
     axios.post(`${API_URL}/blog/new`, JSON.stringify(payload), {
         headers: {
-            'Authorization': 'Bearer '
+            'Authorization': localStorage.getItem('token')
         }
     }).then(response => {
         console.log('Success:', response.data);
+        router.push(`/blog/${response.data.postId}`)
     }).catch(error => {
         console.error('Error:', error.response ? error.response.data : error.message);
     });

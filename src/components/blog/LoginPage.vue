@@ -31,7 +31,7 @@
 
                 <!-- Register Link -->
                 <div class="text-center mt-6">
-                    <router-link to="/login" class="text-sm text-gray-500 hover:underline">
+                    <router-link to="/signup" class="text-sm text-gray-500 hover:underline">
                         Don’t have an account? <span class="text-black">Register</span>
                     </router-link>
                 </div>
@@ -43,6 +43,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
+import { API_URL } from '@/config'
 
 const email = ref('')
 const password = ref('')
@@ -50,12 +52,16 @@ const router = useRouter()
 
 async function handleLogin() {
     try {
-        console.log('Logging in with:', email.value, password.value)
-        alert('Login successful!')
-        router.push('/')
+        const response = await axios.post(`${API_URL}/auth/login`, {
+            email: email.value,
+            password: password.value
+        })
+
+        localStorage.setItem('token', response.data.token)
+        router.push('/blog')
     } catch (error) {
         console.error('Login failed:', error)
-        alert('Login failed. Please check your credentials.')
+        alert(error.response.data.message)
     }
 }
 </script>

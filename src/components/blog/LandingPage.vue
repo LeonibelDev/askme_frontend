@@ -4,7 +4,7 @@
         <section class="flex flex-col items-center justify-center px-4 py-20 md:py-32 relative overflow-hidden">
             <!-- Floating Tags (desktop) -->
             <span v-for="tag in tags" :key="tag.id"
-                class="absolute hidden md:inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold floating-tag z-0"
+                class="absolute hidden md:inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold floating-tag"
                 :style="{
                     top: tag.top,
                     left: tag.left,

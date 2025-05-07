@@ -3,8 +3,8 @@ import { createWebHistory, createRouter } from 'vue-router'
 import App from './App.vue'
 
 import 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css';
 import 'prismjs/components/prism-javascript.min.js';
+import 'prismjs/themes/prism.css';
 
 // components
 import LandingPage from './components/blog/LandingPage.vue';

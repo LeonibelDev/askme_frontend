@@ -1,5 +1,5 @@
 <template>
-  <div v-if="post" class="max-w-4xl mx-auto px-4 py-12">
+  <div v-if="post" class="max-w-3xl mx-auto px-4 py-12">
     <!-- Tags and Date -->
     <div class="flex items-center justify-center flex-wrap gap-2 text-gray-500 text-sm mb-6">
       <span v-for="tag in post.tags" :key="tag"
@@ -23,7 +23,7 @@
     </div>
 
     <!-- Sections -->
-    <div class="space-y-12">
+    <div class="space-y-12" v-if="post.sections">
       <div v-for="section in sortedSections" :key="section.position">
         <!-- Normal Text -->
         <p v-if="section.Type === 'text'" class="text-lg leading-8 text-gray-800 mb-6 whitespace-pre-line">
@@ -48,7 +48,7 @@
         <div v-if="section.Type === 'image'" class="text-center">
           <span class="text-sm text-gray-400">from {{
             ImageSource(section.content)
-            }}</span>
+          }}</span>
         </div>
 
         <!-- Code -->
@@ -62,17 +62,43 @@
     <div class="flex justify-center mt-16">
       <button @click="GoBack()"
         class="inline-block bg-gray-800 hover:bg-gray-900 text-white font-semibold py-3 px-8 rounded-full transition duration-300">
-        ← Go Back
+        Go Back
       </button>
     </div>
 
     <NewsLetter class="mt-16" />
   </div>
 
-  <div v-else class="text-center py-20 text-gray-400">
-    Loading post...
-  </div>
+  <!-- Skeleton Loader -->
+  <div v-else class="max-w-3xl mx-auto px-4 py-12 space-y-8 animate-pulse">
+    <!-- Tags and Date -->
+    <div class="flex items-center justify-center flex-wrap gap-2">
+      <div class="h-6 w-20 bg-gray-200 rounded-full"></div>
+      <div class="h-6 w-24 bg-gray-200 rounded-full"></div>
+    </div>
 
+    <!-- Title -->
+    <div class="h-10 bg-gray-300 rounded w-3/4 mx-auto"></div>
+
+    <!-- Cover Image -->
+    <div class="w-full h-64 bg-gray-200 rounded-2xl"></div>
+    <div class="h-4 w-24 bg-gray-300 mx-auto rounded"></div>
+
+    <!-- Content Sections -->
+    <div class="space-y-6">
+      <div class="h-6 bg-gray-200 rounded w-5/6"></div>
+      <div class="h-6 bg-gray-200 rounded w-4/6"></div>
+      <div class="h-6 bg-gray-200 rounded w-3/6"></div>
+    </div>
+
+    <!-- Button -->
+    <div class="flex justify-center mt-16">
+      <div class="h-10 w-32 bg-gray-300 rounded-full"></div>
+    </div>
+
+    <!-- Newsletter Skeleton -->
+    <div class="h-32 bg-gray-100 rounded-lg"></div>
+  </div>
 
 </template>
 
@@ -148,6 +174,7 @@ const sortedSections = computed(() => {
 <style scoped>
 pre {
   background-color: #262626;
+  background-color: #F9F9F9;
   padding: 1rem;
   border-radius: 8px;
   overflow-x: auto;

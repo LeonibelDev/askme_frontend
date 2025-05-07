@@ -1,5 +1,5 @@
 <template>
-  <GuestNavbar />
+  <NavbarOptions />
   <div class="pt-20">
     <RouterView />
   </div>
@@ -7,7 +7,7 @@
 
 <script setup>
 import { RouterView } from 'vue-router'
-import GuestNavbar from './components/assets/GuestNavbar.vue';
+import NavbarOptions from './components/assets/NavbarOptions.vue';
 </script>
 
 <style scoped></style>
