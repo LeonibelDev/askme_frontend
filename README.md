@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Frontend
-=======
 # Askme
->>>>>>> ee4e858d14f8c57d25872aabb75e3afb6292b37e
 
 A Vue.js frontend project with views for the home page, newsletter form, and blog.
 
