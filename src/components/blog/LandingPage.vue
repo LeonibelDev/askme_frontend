@@ -48,11 +48,15 @@
 
         <!-- Newsletter Section -->
         <NewsLetter />
+
+        <!-- Footer -->
+        <FooterComponent />
     </main>
 </template>
 
 <script setup>
 import NewsLetter from '../assets/NewsLetter.vue'
+import FooterComponent from '../assets/FooterComponent.vue'
 import { ArrowRight } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
 

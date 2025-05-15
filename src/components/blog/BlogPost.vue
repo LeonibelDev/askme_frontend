@@ -11,7 +11,7 @@
     </div>
 
     <!-- Title -->
-    <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-6 leading-tight">
+    <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-6 leading-tight title">
       {{ post.title }}
     </h1>
 
