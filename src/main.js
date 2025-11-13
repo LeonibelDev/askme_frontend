@@ -27,7 +27,21 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior() {
+        return { top: 0 }
+    }
+})
+
+
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem('token')
+
+    if (to.path === '/' && token) {
+        next('/blog')
+    } else {
+        next()
+    }
 })
 
 createApp(App)

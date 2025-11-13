@@ -5,7 +5,7 @@
 
             <!-- Tags Input -->
             <div>
-                <input v-model="newPost.tagsInput" type="text" placeholder="Enter tags separated by commas"
+                <input v-model="newPost.tagsInput" type="text" placeholder="Enter tags separated by spaces"
                     @input="updateTags"
                     class="w-full text-2xl font-medium placeholder-gray-400 bg-transparent focus:outline-none py-2" />
                 <div class="flex flex-wrap gap-2 mt-2">
@@ -142,7 +142,7 @@ function removeSection(index) {
 }
 
 function updateTags() {
-    newPost.value.tags = newPost.value.tagsInput.split(',').map(t => t.trim()).filter(t => t)
+    newPost.value.tags = newPost.value.tagsInput.split(' ').map(t => t.trim()).filter(t => t)
 }
 
 function sectionPlaceholder(type) {

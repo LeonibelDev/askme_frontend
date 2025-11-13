@@ -1,5 +1,8 @@
 <template>
-    <main class="flex min-h-screen flex-col bg-white">
+    <main class="flex min-h-screen flex-col bg-white relative overflow-hidden">
+        <!-- Fondo de patrón de puntos -->
+        <div class="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none"></div>
+
         <!-- Hero Section with Floating Tags -->
         <section class="flex flex-col items-center justify-center px-4 py-20 md:py-32 relative overflow-hidden">
             <!-- Floating Tags (desktop) -->
@@ -36,7 +39,7 @@
                 <div class="pt-6">
                     <RouterLink to="/blog">
                         <button
-                            class="rounded-full bg-[#16a34a] hover:bg-[#15803d] text-white font-medium px-8 py-6 text-lg group inline-flex items-center">
+                            class="rounded-full bg-[#16a34a] hover:bg-[#15803d] text-white font-medium px-8 py-6 text-lg group inline-flex items-center transition-all">
                             View Publications
                             <ArrowRight class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                         </button>
@@ -45,18 +48,13 @@
             </div>
         </section>
 
-
         <!-- Newsletter Section -->
         <NewsLetter />
-
-        <!-- Footer -->
-        <FooterComponent />
     </main>
 </template>
 
 <script setup>
 import NewsLetter from '../assets/NewsLetter.vue'
-import FooterComponent from '../assets/FooterComponent.vue'
 import { ArrowRight } from 'lucide-vue-next'
 import { RouterLink } from 'vue-router'
 
@@ -69,11 +67,15 @@ const tags = [
     { id: 6, name: "DevOps", top: "30%", right: "8%", animationDuration: "16s", animationDelay: "2.5s" },
     { id: 7, name: "Blockchain", top: "55%", right: "12%", animationDuration: "21s", animationDelay: "0.7s" },
 ]
-
-
 </script>
 
 <style scoped>
+.bg-dot-pattern {
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+    background-size: 24px 24px;
+    z-index: 1;
+}
+
 @keyframes float {
     0% {
         transform: translate(0, 0) rotate(0deg);

@@ -1,9 +1,11 @@
 <template>
     <footer class=" text-gray-700">
-        <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="max-w-5xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Logo & Tagline -->
             <div class="space-y-4">
-                <h2 class="text-xl font-bold text-[#16a34a]">TechPulse</h2>
+                <router-link to="/" class="text-lg font-semibold text-gray-900 tracking-tight">
+                    MyTechBlog<span class="text-sm text-gray-400">.dev</span>
+                </router-link>
                 <p class="text-sm">
                     Empowering developers and tech professionals with curated insights and resources.
                 </p>
@@ -40,8 +42,9 @@
             </div>
         </div>
 
-        <div class="text-center text-xs text-gray-400 py-4">
-            &copy; {{ new Date().getFullYear() }} TechPulse. All rights reserved.
+        <div class="text-center text-sm text-gray-400 py-4">
+            &copy; {{ new Date().getFullYear() }} MyTechBlog
+            <span class="text-xs text-gray-400">.dev</span> All rights reserved.
         </div>
     </footer>
 </template>

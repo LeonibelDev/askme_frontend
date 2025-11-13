@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full py-24 bg-white">
+    <section class="w-full py-10 mt-[10rem] bg-white">
         <div class="max-w-2xl mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-semibold tracking-tight text-gray-900">
                 Get insights straight to your inbox
@@ -53,6 +53,16 @@ function subscribe() {
                     message.value = ''
                 }, 3000)
             }
+            if (response.status === 400) {
+
+                message.value = 'user exist'
+
+                setTimeout(() => {
+                    message.value = ''
+                }, 3000)
+
+            }
+
         })
         .catch(err => {
             console.error(err)
