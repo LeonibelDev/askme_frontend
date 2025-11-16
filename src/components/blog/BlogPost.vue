@@ -41,9 +41,6 @@
 
     </div>
 
-
-
-
     <!-- Cover Image -->
     <div class="overflow-hidden mb-12 text-center">
       <img :src="post.cover" alt="Cover" class="w-full object-cover rounded-2xl" />
@@ -91,6 +88,19 @@
         <pre v-else-if="section.Type === 'code'" class="rounded-xl overflow-x-auto">
 <code class="language-javascript">{{ section.content }}</code>
         </pre>
+
+        <!-- URL -->
+        <div v-else-if="section.Type === 'url'" class="p-5 bg-white rounded-xl border border-neutral-200
+         hover:border-neutral-300 transition-all duration-200
+         shadow-sm flex items-start">
+          <a :href="section.content" target="_blank" rel="noopener noreferrer" class="text-blue-800 hover:text-blue-600 
+            decoration-neutral-300 hover:decoration-neutral-400
+           underline-offset-4 break-words block leading-relaxed">
+            {{ section.content }}
+          </a>
+        </div>
+
+
       </div>
     </div>
 
@@ -106,7 +116,12 @@
   </div>
 
   <!-- Skeleton Loader -->
-  <div v-else class="max-w-3xl mx-auto px-4 py-12 space-y-8 animate-pulse">
+  <div v-else class="max-w-3xl mx-auto px-4 py-12 space-y-8 animate-pulse mt-12">
+    <div class="flex flex-wrap items-center justify-center gap-3 text-gray-600 text-sm mb-6">
+      <div class="h-6 w-20 bg-gray-200 rounded-full"></div>
+      <div class="h-6 w-24 bg-gray-200 rounded-full"></div>
+    </div>
+
     <!-- Title -->
     <div class="h-10 bg-gray-300 rounded w-3/4 mx-auto"></div>
 
